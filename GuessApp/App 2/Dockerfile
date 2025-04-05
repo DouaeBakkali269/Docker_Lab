@@ -1,25 +1,28 @@
-# === Dockerfile for App 2 (Python Flask) ===
-
-# 1. Choose a Base Image (Python 3.9 slim version)
+# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# 2. Set the working directory inside the container
+# Set the working directory in the container to /app
 WORKDIR /app
 
-# 3. Copy the requirements file first (for Docker cache optimization)
+# Copy the dependencies file first to leverage Docker cache
 COPY requirements.txt .
 
-# 4. Install dependencies listed in requirements.txt
-#    --no-cache-dir prevents storing cache, reducing image size
-#    -r specifies the requirements file
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copy the application code (index.py) into the container's /app directory
+# Copy the current directory contents into the container at /app
 COPY index.py .
 
-# 6. Inform Docker that the container listens on port 80
+# Make port 80 available to the world outside this container
 EXPOSE 80
 
-# 7. Define the command to run the application when the container starts
-#    This will execute: python index.py
-CMD ["python", "index.py"]
+# Define environment variables (optional but good practice)
+ENV FLASK_APP=index.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=80
+
+# Run index.py when the container launches
+# Using exec form is generally preferred
+CMD ["flask", "run"]
+# Alternative CMD using the original script structure:
+# CMD ["python", "index.py"]
