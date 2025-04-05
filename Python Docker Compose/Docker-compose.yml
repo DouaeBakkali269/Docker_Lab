@@ -1,0 +1,26 @@
+# docker-compose.yml
+
+version: '3.8' # Specify the version of Docker Compose file format
+
+services:
+  # Service 1: The Python Flask Web Application
+  web:
+    build: . # Build an image from the Dockerfile in the current directory (.)
+    ports:
+      - "5000:5000" # Map port 5000 on the host to port 5000 in the container (Flask default)
+    environment:
+      - FLASK_APP=app.py      # Tell Flask which file to run
+      - FLASK_RUN_HOST=0.0.0.0 # Make Flask listen on all interfaces within the container
+      - FLASK_DEBUG=1         # Enable Flask debug mode (optional, good for development)
+    depends_on:
+      - redis # Wait for the 'redis' service to be started before starting 'web'
+
+  # Service 2: The Redis Server
+  redis:
+    image: "redis:alpine" # Use the official Redis image (alpine version is smaller)
+    volumes:
+      - redis_data:/data # Persist Redis data using a named volume
+
+# Define named volumes
+volumes:
+  redis_data: {} # Use the default driver for the 'redis_data' volume
