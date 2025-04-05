@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Implementation-Title: Eval
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Boris
+Implementation-Vendor-Id: fr.istef.cw1719.springboot
+Spring-Boot-Version: 2.1.3.RELEASE
+Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: fr.istef.cw1719.springboot.eval.EvalApplication
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_131
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/eval
+
